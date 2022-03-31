@@ -3,7 +3,7 @@
 # Shamelessly copied from https://github.com/technosophos/helm-template
 
 PROJECT_NAME="helm-oci"
-PROJECT_GH="johnlinvc/$PROJECT_NAME"
+PROJECT_GH="rv-devops/$PROJECT_NAME"
 export GREP_COLOR="never"
 
 HELM_MAJOR_VERSION=$(helm version --client --short | awk -F '.' '{print $1}')
