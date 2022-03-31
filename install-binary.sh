@@ -120,6 +120,7 @@ fail_trap() {
 # testVersion tests the installed client to make sure it is working.
 testVersion() {
   set +e
+  echo $OCI_USER
   echo "$PROJECT_NAME installed into $HELM_PLUGIN_DIR/$PROJECT_NAME"
   "${HELM_PLUGIN_DIR}/bin/helm-oci" --version
   set -e
