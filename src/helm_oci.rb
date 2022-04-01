@@ -11,6 +11,7 @@ class HelmOci
     end
 
     def user
+      log(ENV['OCI_USER'])
       ENV['OCI_USER']
     end
 
