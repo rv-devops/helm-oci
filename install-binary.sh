@@ -14,7 +14,7 @@ HELM_MAJOR_VERSION=$(helm version --client --short | awk -F '.' '{print $1}')
 # available. This is the case when using MSYS2 or Cygwin
 # on Windows where helm returns a Windows path but we
 # need a Unix path
-
+echo "inside script $HELM_MAJOR_VERSION"
 if type cygpath >/dev/null 2>&1; then
   HELM_PLUGIN_DIR=$(cygpath -u $HELM_PLUGIN_DIR)
 fi
