@@ -21,7 +21,6 @@ task :build_mruby do
   end
   Dir.chdir("vendor/mruby") do
     FileUtils.cp("../build_config.rb","./")
-    FileUtils.cp("../build_config.rb.lock","./")
     system_raise("rake")
     FileUtils.cp("build_config.rb.lock","../")
   end
