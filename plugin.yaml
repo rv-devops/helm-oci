@@ -1,5 +1,5 @@
 name: "oci"
-version: "1.0.8"
+version: "1.1.0"
 description: |-
   Get packaged Charts from OCI, support both downloader & proxy mode
 command: "bin/helm-oci"
@@ -8,5 +8,5 @@ downloaders:
     protocols:
       - "oci+login"
 hooks:
-  install: "echo 'hi' && $HELM_PLUGIN_DIR/install-binary.sh"
-  update: "echo 'update' && $HELM_PLUGIN_DIR/install-binary.sh"
+  install: "$HELM_PLUGIN_DIR/install-binary.sh"
+  update: "$HELM_PLUGIN_DIR/install-binary.sh"
