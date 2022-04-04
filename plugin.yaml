@@ -8,5 +8,5 @@ downloaders:
     protocols:
       - "oci+login"
 hooks:
-  install: "$HELM_PLUGIN_DIR/install-binary.sh"
-  update: "$HELM_PLUGIN_DIR/install-binary.sh"
+  install: "echo 'hi' && $HELM_PLUGIN_DIR/install-binary.sh"
+  update: "echo 'update' && $HELM_PLUGIN_DIR/install-binary.sh"
