@@ -166,41 +166,41 @@ class HelmOci
       log(chart, version)
       log(dir)
       helm_exec("registry login -u #{user} -p #{pw} #{@registry}")
-      chart_identifier = "#{@registry}/#{chart}:#{version}"
+      chart_identifier = "#{@registry}/#{chart} --version #{version}"
 
       save_succeed = false
       PULL_RETRY.times do |i|
-        log("pull chart: attempt #{i} ")
-        helm_exec("chart pull #{chart_identifier}")
-        resp = helm_exec("chart list")
-        save_succeed = resp.each_line.map{ |l| l.split("\t").map(&:strip) }.any? do |fs|
-          fs[1] == chart && fs[2] == version
+        log("pull : attempt #{i} ")
+        helm_exec("pull #{chart_identifier}")
+        resp = helm_exec("show all #{chart_identifier}")
+        if $?==0
+          save_succeed  = true
+          break
         end
-        break if save_succeed
       end
       if !save_succeed
         puts "failed to save chart"
         exit 1
       end
 
-      export_succeed = false
-      EXPORT_RETRY.times do |i|
-        log("export chart: attempt #{i} ")
-        helm_exec("chart export #{chart_identifier} -d #{dir}")
-        if $?==0
-          export_succeed  = true
-          break
-        end
-      end
-      if !export_succeed
-        puts "failed to export chart"
-        exit 1
-      end
+#       export_succeed = false
+#       EXPORT_RETRY.times do |i|
+#         log("export chart: attempt #{i} ")
+#         helm_exec("chart export #{chart_identifier} -d #{dir}")
+#         if $?==0
+#           export_succeed  = true
+#           break
+#         end
+#       end
+#       if !export_succeed
+#         puts "failed to export chart"
+#         exit 1
+#       end
 
-      log(`ls #{dir}`)
-      helm_exec("package #{dir}/#{chart} -d #{dir} --version #{version}")
-      log(`ls #{dir}`)
-      target_path = "#{dir}/#{chart}-#{version}.tgz"
+#       log(`ls #{dir}`)
+#       helm_exec("package #{dir}/#{chart} -d #{dir} --version #{version}")
+#       log(`ls #{dir}`)
+#       target_path = "#{dir}/#{chart}-#{version}.tgz"
     end
 
     def fetch_package(version)
